@@ -134,7 +134,7 @@
     </div>
   </aside>
 
-  <section class="grid items-start flex-1 grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+  <section class="grid flex-1 grid-cols-1 items-start gap-6 md:grid-cols-2 lg:grid-cols-3">
     {#if searchTerm && searchResults.length > 0}
       <div class="text-xl font-semibold text-gray-700 col-span-full">
         Search results for: "{searchTerm}"
@@ -146,6 +146,15 @@
         <div class="flex items-center justify-center mt-8 col-span-full">
           <Button on:click={loadMoreSearchResults}>Load more</Button>
         </div>
+      {/if}
+    {:else if selectedTag}
+      <div class="col-span-full text-xl font-semibold text-gray-700">
+        Projects in: "{selectedTag}"
+      </div>
+      {#if categoryResult.length > 0}
+        {#each categoryResult as project}
+          <Card {project} class="!h-auto !flex-shrink-0" />
+        {/each}
         {#if !categoryResultLoaded && !allCategoryLoaded}
           <div class="flex items-center justify-center mt-8 col-span-full">
             <Button on:click={loadMoreCategoryResults}>Load more</Button>
